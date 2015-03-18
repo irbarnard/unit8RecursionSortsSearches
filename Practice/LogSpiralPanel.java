@@ -1,21 +1,19 @@
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.awt.geom.Arc2D;
 import javax.swing.JPanel;
 
 public class LogSpiralPanel extends JPanel
 {
    private static final double GOLDEN_MEAN =  (1 + Math.sqrt(5)) / 2;
-   double newX;
-   double newY;
-   double newSide;
-   int newAngle;
+   
    public void paintComponent(Graphics g)
    {
-       Graphics g2 = (Graphics2D) g;
+       Graphics2D g2 = (Graphics2D) g;
        
+       recursiveDraw(g2, 750.0, 400.0, (68), 90);
 
 
    }
@@ -29,32 +27,44 @@ public class LogSpiralPanel extends JPanel
       current golden rectangle is located. For the outermost golden 
       rectangle, the angle is 90.
    */
-   private void recursiveDraw(Graphics g, double x, double y, double side, int angle)
+   private void recursiveDraw(Graphics2D g, double x, double y, double side, int angle)
    {
-      
+     
      if (side > 1)
      {
       
-      Rectangle current = new Rectangle();
-      newSide = side / GOLDEN_MEAN;
-      // Draw the current square and arc
       
+      double newSide = side / GOLDEN_MEAN;
+      Rectangle2D.Double r = new Rectangle2D.Double(x, y, side, side);
+      this.drawArc(g, x, y, side, angle);
+      // Draw the current square and arc
+      g.draw(r);
       /* Continue drawing the spiral recursively: calculate the new side 
          size, calculate the new (x, y) coordinates and the new angle. Then, 
          call "recursiveDraw" again. */
      
-      newX = calculateNewX(x, angle, side, newSide);
-      newY = calculateNewY(y, angle, side, newSide);
-      if(angle == 270)
+      double newX = calculateNewX(x, angle, side, newSide);
+      double newY = calculateNewY(y, angle, side, newSide);
+      int newAngle = angle;
+      if(angle == 0)
       {
-          newAngle = 0;
+          newAngle = angle + 90;
+      }
+      else if(angle == 90)
+      {
+          newAngle = angle + 90;
+      }
+      else if(angle == 180)
+      {
+          angle = 270;
       }
       else
       {
-          newAngle = 90;
+          angle = 0;
       }
-      this.drawArc(g, x, y, side, angle);
-      recursiveDraw( g,  x, y, side, angle);
+      
+
+      recursiveDraw( g,  newX, newY, newSide, newAngle);
      }
    }
    
@@ -66,6 +76,7 @@ public class LogSpiralPanel extends JPanel
       @param angle The angle (0, 90, 180 or 270) where the top of the 
       current golden rectangle is located. For the outermost golden 
       rectangle, the angle is 90.
+      
    */
    private void drawArc(Graphics g, double x, double y, double side, int angle)
    {
