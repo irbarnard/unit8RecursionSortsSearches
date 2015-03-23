@@ -1,4 +1,3 @@
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
@@ -48,19 +47,19 @@ public class LogSpiralPanel extends JPanel
       int newAngle = angle;
       if(angle == 0)
       {
-          newAngle = angle + 90;
+          newAngle = angle + 270 ;
       }
       else if(angle == 90)
       {
-          newAngle = angle + 90;
+          newAngle = angle - 90;
       }
       else if(angle == 180)
       {
-          angle = 270;
+          newAngle = angle - 90;
       }
       else
       {
-          angle = 0;
+          newAngle = angle - 90;
       }
       
 
