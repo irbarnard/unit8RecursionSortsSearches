@@ -16,7 +16,8 @@ public class TreeViewer
         TreeViewer viewer = new TreeViewer();
     }
 
-    public TreeViewer()
+    public TreeViewer(int order, int x1, int y1, int x5, int y5,
+                            Graphics page)
     {
         orderLabel = new JLabel ("Order: 1");
         orderLabel.setForeground (Color.black);
