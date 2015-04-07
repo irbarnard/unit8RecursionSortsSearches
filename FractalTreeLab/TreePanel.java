@@ -18,17 +18,29 @@ public class TreePanel
      */
     public TreePanel()
     {
-       current = currentOrder;
+      current = currentOrder;
       setBackground (Color.black);
       setPreferredSize (new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
     }
 
    
-    public int drawFractal(int order, int x1, int y1, int x5, int y5,
-                            Graphics page)
+    public int drawFractal(Graphic g, int x, int y)
     {
         int deltaX, deltaY, xStart, yStart, xEnd, yEnd, xNew, yNew;
-        
+        if(order == 1)
+        {
+            page.drawline(xStart, yStart, xEnd yEnd);
+        }
+        else
+        {
+            xStart = x;
+            yStart = y;
+            
+            deltaX = xEnd -xStart;
+            deltaY = yEnd - yStart;
+            
+            
+        }
     }
 
 }
